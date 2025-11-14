@@ -1,8 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
+import RecoveryForm from "@/components/RecoveryForm";
+import { useState } from "react";
 
 const Index = () => {
+  const [showForm, setShowForm] = useState(false);
+
+  const scrollToForm = () => {
+    setShowForm(true);
+    setTimeout(() => {
+      document.getElementById('recovery-form')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <header className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-lg border-b border-border">
@@ -17,7 +28,7 @@ const Index = () => {
             <a href="#pricing" className="text-sm hover:text-primary transition-colors">Тарифы</a>
             <a href="#contact" className="text-sm hover:text-primary transition-colors">Контакты</a>
           </div>
-          <Button className="bg-primary hover:bg-primary/90">
+          <Button className="bg-primary hover:bg-primary/90" onClick={scrollToForm}>
             Попробовать
           </Button>
         </nav>
@@ -38,11 +49,11 @@ const Index = () => {
               Быстро, безопасно, конфиденциально.
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-lg px-8" onClick={scrollToForm}>
                 Начать восстановление
                 <Icon name="ArrowRight" className="ml-2" size={20} />
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8">
+              <Button size="lg" variant="outline" className="text-lg px-8" onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}>
                 Узнать больше
               </Button>
             </div>
@@ -376,6 +387,14 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {showForm && (
+        <section id="recovery-form" className="py-20 px-4 bg-muted/30">
+          <div className="container mx-auto">
+            <RecoveryForm />
+          </div>
+        </section>
+      )}
 
       <footer className="py-8 px-4 border-t border-border">
         <div className="container mx-auto max-w-6xl">

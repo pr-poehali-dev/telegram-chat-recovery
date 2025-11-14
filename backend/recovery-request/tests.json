@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "Create recovery request",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "userName": "Тестовый Пользователь",
+        "userPhone": "+79991234567",
+        "userEmail": "test@example.com",
+        "chatType": "personal",
+        "chatName": "@testuser",
+        "messagesCount": "1000",
+        "dateFrom": "2024-01-01",
+        "dateTo": "2024-12-31",
+        "description": "Тестовое восстановление",
+        "pricingPlan": "basic"
+      },
+      "expectedStatus": 200
+    },
+    {
+      "name": "Get recovery requests list",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    }
+  ]
+}
