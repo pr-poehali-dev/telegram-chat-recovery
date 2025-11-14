@@ -73,6 +73,19 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         cursor.close()
         conn.close()
         
+        import requests
+        recovery_url = 'https://functions.poehali.dev/telegram-recovery'
+        try:
+            requests.post(recovery_url, json={
+                'request_id': request_id,
+                'user_phone': data.get('userPhone'),
+                'chat_name': data.get('chatName'),
+                'date_from': data.get('dateFrom'),
+                'date_to': data.get('dateTo')
+            }, timeout=5)
+        except:
+            pass
+        
         return {
             'statusCode': 200,
             'headers': {
@@ -83,7 +96,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 'success': True,
                 'requestId': request_id,
                 'createdAt': created_at.isoformat(),
-                'message': 'Заявка успешно создана'
+                'message': 'Заявка успешно создана и отправлена на обработку'
             }),
             'isBase64Encoded': False
         }
